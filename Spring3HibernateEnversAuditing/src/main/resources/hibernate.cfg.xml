@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:8889/HibernateDB</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">create-drop</property>
+
+		<!-- Add the entity classes to be managed by hibernate. -->
+		<mapping class="com.vijayl.enverstest.entity.Employee" />
+		<mapping class="com.vijayl.enverstest.entity.Address" />
+		<mapping class="com.vijayl.enverstest.entity.Project" />
+		
+		<!-- Envers Configuration for Auditing.  -->
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert" />
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update" />
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete" />
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-update" />
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="pre-collection-remove" />
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-collection-recreate" />
+
+	</session-factory>
+
+</hibernate-configuration>
